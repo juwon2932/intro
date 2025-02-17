@@ -61,6 +61,12 @@
         #sns img {
             width: 50px;
             height: 50px;
+            transition: 1s;
+        }
+        #sns img:hover {
+            transform: rotate(45deg);
+            width: 80px;
+            height: 80px;
         }
 
         ul {
@@ -80,23 +86,33 @@
             text-align: center;
         }
 
-        p {
-            text-align: center;
-        }
-
-        #time{
+        #time {
             margin: 100px auto;
             font-size: 20px;
             color: black;
             font-weight: bold;
             text-align: center;
+            transition: 1s;
+            animation-name: slider;
+            animation-duration: 3s;
+
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
         }
+        @keyframes slider {
+            from{
+                transform: translateX(0);
+            }
+            to{
+                transform: translateX(50px);
+            }
+        }
+        
     </style>
 </head>
 
 <body>
     <div id="container">
-        <!-- 사이드바 -->
         <div id="side">
             <div id="namecard">
                 <img src="media/image/chill.jpg" width="250" height="300">
@@ -124,14 +140,12 @@
             <!-- 자기소개 -->
             <section>
                 <h2 class="subtitle">자기소개</h2>
-                <hr>
                 <p><i>프로그래밍</i><i>에 관심이 많습니다.</i><br>현재 열심히 공부하며 코딩 중!</p>
             </section>
 
             <!-- 경력 -->
             <section>
                 <h2 class="subtitle">Experience</h2>
-                <hr>
                 <ul>
                     <li><strong>프론트엔드</strong>
                         <ul>
@@ -152,7 +166,6 @@
             <!-- 숙련도 -->
             <section>
                 <h2 class="subtitle">보유 기술</h2>
-                <hr>
                 <ul>
                     <li>자바</li>
                     <li>오라클</li>
