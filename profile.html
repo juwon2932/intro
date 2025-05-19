@@ -1,218 +1,434 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <title>온라인 프로필</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>개발자 juwon · 감성 프로필</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Archivo:wght@700&family=Nanum+Pen+Script&display=swap"
+        rel="stylesheet">
     <style>
+        html,
         body {
             margin: 0;
             padding: 0;
-            height: 100%; 
-            background-image: url(media/image/back.jpg); 
-            background-size: cover; 
-            background-position: center;
-            background-attachment: fixed;
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 70%;
-            border: 1px solid #222;
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        thead {
-            background: #eee;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 5px;
-            font-size: 0.8em;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(120deg, #f6f6f1 70%, #eae9e4 100%);
+            overflow-x: hidden;
         }
 
-        #container {
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-start; 
-            width: 100%;
-            margin: 20px;
+        .particles-bg {
+            pointer-events: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: transparent;
+            overflow: hidden;
         }
 
-        #side {
-            width: 250px;
-            height: 750px;
-            background-color: #ccc ;
-            padding: 20px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 1.5);
+        .particles-bg::before,
+        .particles-bg::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(34, 55, 44, 0.12);
+            animation: float-particles 14s infinite alternate ease-in-out;
         }
 
-        #contents {
-            width: 550px;
-            height: 750px;
-            background-image: url(media/image/1.jpg);
-            background-size: 550px 750px;
-            background-repeat: no-repeat; 
-            background-position: center; 
-            opacity: 0.8;
-            background-color: darkgray;
-            padding: 20px;
+        .particles-bg::before {
+            width: 70px;
+            height: 70px;
+            left: 20vw;
+            top: 12vh;
+            animation-delay: 0s;
+        }
+
+        .particles-bg::after {
+            width: 110px;
+            height: 110px;
+            right: 7vw;
+            top: 45vh;
+            animation-delay: 4s;
+        }
+
+        @keyframes float-particles {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                transform: translateY(40px) scale(1.17);
+            }
+        }
+
+        .wide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-side {
+            width: 42vw;
+            min-width: 320px;
+            max-width: 560px;
+            background: #e8e8e0dd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 0 60px #c7c6b330;
+            border-right: 2.5px solid #dad9d4c0;
+        }
+
+        .profile-img {
+            width: 210px;
+            height: 210px;
+            border-radius: 33% 67% 42% 58% / 59% 44% 56% 41%;
+            object-fit: cover;
+            box-shadow: 0 10px 32px #cbc3ad48, 0 1px 15px #fff9e980;
+            margin-bottom: 28px;
+            background: #f5f5ef;
+            border: 3.5px solid #ede5d1a8;
+            filter: grayscale(18%) contrast(1.06) brightness(0.96);
+            animation: floatimg 4s ease-in-out infinite alternate;
+        }
+
+        .profile-title {
+            font-size: 2.7em;
+            letter-spacing: -1.7px;
+            color: #292722;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 700;
             text-align: center;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 1.5);
-            
+            margin-bottom: 13px;
         }
 
-        #sns img {
-            width: 50px;
-            height: 50px;
-            transition: 1s;
-        }
-        #sns img:hover {
-            transform: rotate(45deg);
-            width: 80px;
-            height: 80px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        li {
-            margin-bottom: 5px;
-        }
-
-        section {
-            margin-bottom: 30px;
-        }
-
-        h2.subtitle {
+        .profile-tagline {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.4em;
+            color: #63624e;
+            margin-bottom: 20px;
             text-align: center;
+            background: #fcf7efaf;
+            border-radius: 12px;
+            padding: 3px 10px 4px 11px;
+            box-shadow: 0 2px 16px #eadfbf2c;
+            display: inline-block;
         }
 
-        #time {
-            margin: 100px auto;
-            font-size: 20px;
-            color: black;
+        .side-notes {
+            margin-top: 38px;
+            font-size: 0.98em;
+            color: #92876b;
+            background: #f3eddb96;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-family: 'IBM Plex Mono', monospace;
+            opacity: 0.76;
+            text-align: center;
+            max-width: 320px;
+        }
+
+        .main-content {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 6vw 4vw 4vw 6vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background: transparent;
+            position: relative;
+        }
+
+        .headline {
+            font-size: 3.3vw;
+            font-family: 'Archivo', Arial, sans-serif;
+            color: #272343;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.3vw;
+            margin-top: 2vw;
+            text-shadow: 0 2px 16px #b6bbc820;
+        }
+
+        .desc-block {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.3em;
+            color: #655958;
+            max-width: 670px;
+            margin-bottom: 2.2vw;
+            background: #fffbe9be;
+            padding: 18px 28px 17px 23px;
+            border-radius: 22px;
+            box-shadow: 0 3px 24px #c8c4ad2b;
+        }
+
+        .exp-list {
+            font-size: 1.08em;
+            color: #44413c;
+            margin-bottom: 2vw;
+            font-family: 'IBM Plex Mono', Arial, monospace;
+            background: #f6f2e79c;
+            border-radius: 16px;
+            padding: 22px 34px 17px 27px;
+            line-height: 2.2;
+            box-shadow: 0 2px 8px #dad2be16;
+        }
+
+        .tag-cloud {
+            margin-top: 12px;
+            margin-bottom: 28px;
+            display: flex;
+            gap: 11px;
+            flex-wrap: wrap;
+        }
+
+        .tag-c {
+            background: #f2efe5ec;
+            border-radius: 13px;
+            font-size: 1em;
+            color: #7e776a;
+            padding: 6px 15px;
+            font-family: 'IBM Plex Mono', Arial, monospace;
+            letter-spacing: 0.7px;
+            box-shadow: 0 2px 8px #edeef356;
+            margin-bottom: 6px;
+            opacity: 0.89;
+        }
+
+        .links-bar {
+            margin-top: 13px;
+            font-size: 1.11em;
+            color: #c7bba7;
+            text-align: left;
+            letter-spacing: 0.01em;
+        }
+
+        .links-bar a {
+            color: #938469;
+            text-decoration: none;
+            margin-right: 14px;
+            border-bottom: 1.1px solid #b2a98352;
+            opacity: 0.88;
+            font-family: 'IBM Plex Mono', monospace;
+            transition: color 0.19s;
+        }
+
+        .links-bar a:hover {
+            color: #222;
+            opacity: 1;
+        }
+
+        /* 찢어진 종이 포스터 (딥그린/밴드 감성) */
+        .torn-poster {
+            position: absolute;
+            top: 5vw;
+            right: 4vw;
+            width: 310px;
+            max-width: 34vw;
+            background: linear-gradient(140deg, #202f26 68%, #354f3c 100%);
+            border-radius: 0 0 37px 8px/0 0 35px 13px;
+            border: 2px solid #334633;
+            box-shadow: 0 8px 36px #1b221e90, 0 4px 16px #161d1890;
+            transform: rotate(7deg) scale(1.06);
+            padding: 22px 35px 27px 26px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.13em;
+            color: #e8f7e0;
+            z-index: 10;
+            opacity: 0.96;
+            background-image:
+                repeating-linear-gradient(90deg, #233a2e30 0 2px, transparent 2px 28px),
+                linear-gradient(to bottom, #283e35 85%, #314a3b 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 94% 98%, 91% 99%, 88% 95%, 86% 98%, 80% 99%, 75% 95%, 73% 99%, 70% 99%, 63% 94%, 62% 100%, 58% 98%, 55% 95%, 50% 99%, 45% 95%, 40% 99%, 37% 97%, 30% 92%, 0 93%);
+            animation: tornAppear 1.2s 1.2s both;
+        }
+
+        @keyframes tornAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(90px) scale(0.7) rotate(13deg);
+            }
+
+            100% {
+                opacity: 0.96;
+                transform: rotate(7deg) scale(1.06);
+            }
+        }
+
+        .poster-title {
+            font-size: 1.28em;
             font-weight: bold;
-            text-align: center;
-            transition: 1s;
-            animation-name: slider;
-            animation-duration: 5s;
+            color: #b7f5bc;
+            margin-bottom: 9px;
+            font-family: 'Archivo', sans-serif;
+            letter-spacing: 0.5px;
+        }
 
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
+        .poster-desc {
+            font-size: 1.01em;
+            color: #c9f5cb;
+            font-family: 'IBM Plex Mono', monospace;
         }
-        @keyframes slider {
-            from{
-                transform: translateX(-50px);
-            }
-            to{
-                transform: translateX(50px);
+
+        /* tape */
+        .tape {
+            position: absolute;
+            top: -13px;
+            left: 27px;
+            width: 58px;
+            height: 18px;
+            background: linear-gradient(90deg, #324c3a 55%, #3c634e 100%);
+            border-radius: 7px 19px 4px 10px/11px 9px 4px 13px;
+            box-shadow: 0 2px 7px #95bba24f;
+            opacity: 0.65;
+            z-index: 12;
+            transform: rotate(-7deg);
+            border: 1.2px dashed #7b9e87;
+        }
+
+        /* 손글씨 낙서 */
+        .vintage-note {
+            position: absolute;
+            left: 8vw;
+            bottom: 7vh;
+            background: rgba(240, 245, 237, 0.85);
+            color: #3d5942;
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.22em;
+            border-radius: 12px 38px 16px 18px/23px 18px 20px 22px;
+            padding: 16px 35px 14px 26px;
+            box-shadow: 0 6px 16px #bcc8b642;
+            z-index: 99;
+            rotate: -4deg;
+            border: 1.5px dashed #b6bead7d;
+        }
+
+        @media (max-width:900px) {
+
+            .torn-poster,
+            .vintage-note,
+            .retro-clock {
+                display: none;
             }
         }
-        
+
+        @keyframes floatimg {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-18px);
+            }
+        }
+
+        .retro-clock {
+            position: fixed;
+            bottom: 3vw;
+            right: 4vw;
+            z-index: 99;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.22em;
+            color: #c3e2bc;
+            background: rgba(32, 50, 37, 0.84);
+            border: 2px solid #496f54;
+            border-radius: 20px 9px 17px 13px/16px 19px 19px 16px;
+            padding: 8px 28px 8px 21px;
+            letter-spacing: 0.07em;
+            box-shadow: 0 2px 12px #4d745744;
+            text-shadow: 0 0 3px #232, 0 2px 2px #182f1a40;
+            user-select: none;
+            opacity: 0.93;
+            transition: background .2s;
+        }
     </style>
 </head>
 
 <body>
-    <div id="container">
-        <div id="side">
-            <div id="namecard">
-                <img src="media/image/chill.jpg" width="250" height="300">
-                <h1>Chill guy</h1>
+    <div class="retro-clock" id="retroClock"></div>
+    <div class="particles-bg"></div>
+    <div class="wide-container">
+        <div class="profile-side">
+            <img class="profile-img" src="media/image/profile.jpg" alt="profile">
+            <div class="profile-title">juwon<br>Web Developer</div>
+            <div class="profile-tagline">매일, <b>코드로 성장</b>을 기록합니다.</div>
+            <div class="side-notes">
+                <div>Incheon, Korea</div>
+                <div>juwon@example.com</div>
             </div>
-            <div id="detail">
-                <p><strong>Incheon, Korea</strong></p>
-                <p><strong>test@naver.com</strong></p>
+        </div>
+        <div class="main-content">
+            <div class="headline">"코드로 일상과 변화를 만들어내다"</div>
+            <div class="desc-block">
+                오늘의 한 줄:<br>
+                <span style="color:#c59361; font-size:1.1em">꾸준한 코드 한 줄, 내일을 바꿉니다.</span><br>
+                <span style="font-size:0.97em;color:#888;">문제를 해결하고, 더 나은 경험을 고민합니다.</span>
             </div>
-            <div id="sns">
-                <h2>SNS</h2>
-                <a href="#">
-                    <img src="media/image/insta.png">
-                </a>
-                <a href="#">
-                    <img src="media/image/twitter.jpg">
-                </a>
-                <div id="contatiner">
-                    <div id="time"></div>
+            <div class="exp-list">
+                <b>• 주요 기술</b> — React, Node.js, MySQL, REST API<br>
+                <b>• 관심</b> — 사용자 경험, 미니멀 UI/UX, 개발 자동화<br>
+                <b>• 경험</b> — SNS/포트폴리오/프로젝트<br>
+                <b>• 목표</b> — 일상을 바꾸는 개발자, 함께 성장하기
+            </div>
+            <div class="tag-cloud">
+                <span class="tag-c">#프론트엔드</span>
+                <span class="tag-c">#백엔드</span>
+                <span class="tag-c">#문제해결</span>
+                <span class="tag-c">#성장기록</span>
+                <span class="tag-c">#코딩라이프</span>
+                <span class="tag-c">#웹개발</span>
+            </div>
+            <div class="links-bar">
+                <a href="https://github.com/juwon2932" target="_blank">GitHub</a>
+                <a href="#">Blog</a>
+            </div>
+            <!-- 찢어진 메모 포스터 -->
+            <div class="torn-poster">
+                <div class="tape"></div>
+                <div class="poster-title">오늘의 개발 다짐</div>
+                <div class="poster-desc">
+                    <ul style="list-style:none; padding:0; margin:7px 0 11px 0;">
+                        <li>· 문제는 결국 코드로 해결된다</li>
+                        <li>· 작은 습관이 큰 변화를 만든다</li>
+                        <li>· 남과 비교하지 않고 어제의 나와 경쟁하자</li>
+                        <li style="color:#97de98; font-family:'Nanum Pen Script'; margin-top:9px;">
+                            “한 줄 한 줄, 내일을 쌓는다”
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-
-        <div id="contents">
-            <!-- 자기소개 -->
-            <section>
-                <h2 class="subtitle">자기소개</h2>
-                <p><i>프로그래밍</i><i>에 관심이 많습니다.</i><br>현재 열심히 공부하며 코딩 중!</p>
-            </section>
-
-            <!-- 경력 -->
-            <section>
-                <h2 class="subtitle">Experience</h2>
-                <ul>
-                    <li><strong>프론트엔드</strong>
-                        <ul>
-                            <li>HTML/CSS/JAVASCRIPT</li>
-                            <li>웹 페이지 잘 만든다</li>
-                            <li>다 잘함</li>
-                        </ul>
-                    </li>
-                    <li><strong>백엔드</strong>
-                        <ul>
-                            <li>자바 잘함</li>
-                            <li>오라클 더 잘함</li>
-                        </ul>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- 숙련도 -->
-            <section>
-                <h2 class="subtitle">보유 기술</h2>
-                <ul>
-                    <li>자바</li>
-                    <li>오라클</li>
-                </ul>
-            </section>
-
-            <!-- 학력 -->
-            <section>
-                <h2 class="subtitle">Education</h2>
-                <table>
-                    <caption>학력 사항</caption>
-                    <thead>
-                        <tr>
-                            <th>출신학교</th>
-                            <th>전공</th>
-                            <th>기간</th>
-                            <th>구분</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>좋은대학교</td>
-                            <td>좋은학과</td>
-                            <td>2010.3 ~ 2013.2</td>
-                            <td>졸업</td>
-                        </tr>
-                        <tr>
-                            <td>꽤좋은고등학교</td>
-                            <td> - </td>
-                            <td>2007.3 ~ 2009.2</td>
-                            <td>졸업</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
+    </div>
+    <!-- 손글씨 낙서 메모 -->
+    <div class="vintage-note">
+        💡 개발이란<br>
+        '실패와 시행착오 속에서 한 걸음씩'<br>
+        <span style="font-size:.98em;opacity:.8;">- juwon 기록</span>
     </div>
 </body>
-</html>
 <script>
-    setInterval(()=>{
-        let datetime = new Date();
-        let time 
-            = datetime.getHours() + ":" + datetime.getMinutes() + ":" + datetime.getSeconds();
-        let obj = document.querySelector("#time");    
-        obj.innerHTML = time;
-    }, 1000);
+    function pad(n) { return n < 10 ? '0' + n : n }
+    function updateClock() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = pad(now.getMonth() + 1);
+        const d = pad(now.getDate());
+        const h = pad(now.getHours());
+        const mi = pad(now.getMinutes());
+        const s = pad(now.getSeconds());
+        document.getElementById("retroClock").textContent = `${y}.${m}.${d}  ${h}:${mi}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 </script>
+
+</html>
